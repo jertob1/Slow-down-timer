@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slow Down Timer</title>
+</head>
+<body>
+    <h1>Slow Down Timer (AudioContext)</h1>
+    
+    <!-- Input field for the YouTube URL -->
+    <label for="youtube-url">YouTube URL:</label>
+    <input type="text" id="youtube-url" placeholder="https://www.youtube.com/watch?v=..." size="50">
+    
+    <!-- Button to fetch and decode the audio -->
+    <button id="load-btn">Load Audio</button>
+
+    <br><br>
+
+    <!-- Custom controls for playing and stopping the AudioContext buffer -->
+    <button id="play-btn" disabled>Play</button>
+    <button id="stop-btn" disabled>Stop</button>
+
+    <!-- Simple text indicator to show what the browser is doing -->
+    <p id="status">Status: Enter a URL and click "Load Audio"</p>
+
+    <!-- Link our JavaScript file -->
+    <script src="/index.js"></script>
+</body>
+</html>
