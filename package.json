@@ -1,30 +1,66 @@
 {
   
   "name": "piano-slowdown-backend",
+  
   "version": "1.0.0",
+  
   "type": "module",
+  
   "description": "",
+  
   "main": "index.js",
+  
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "vitest"
   },
+  
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JeremyTobNYU/Slow-down-timer.git"
+  
+    
+  "type": "git",
+  
+    
+  "url": "git+https://github.com/JeremyTobNYU/Slow-down-timer.git"
+  
   },
+  
   "keywords": [],
+  
   "author": "",
+  
   "license": "ISC",
+  
   "bugs": {
-    "url": "https://github.com/JeremyTobNYU/Slow-down-timer/issues"
+  
+    
+  "url": "https://github.com/JeremyTobNYU/Slow-down-timer/issues"
+  
   },
+  
   "homepage": "https://github.com/JeremyTobNYU/Slow-down-timer#readme",
+  
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1"
+  
+    
+  "cors": "^2.8.6",
+  
+    
+  "express": "^5.2.1"
+  
   },
+  
   "devDependencies": {
-    "nodemon": "^3.1.14"
+  
+    
+  "nodemon": "^3.1.14",
+  
+    
+  "supertest": "^7.3.0",
+  
+    
+  "vitest": "^5.0.1"
+  
   }
 }

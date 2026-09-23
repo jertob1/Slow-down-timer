@@ -18,6 +18,12 @@ app.get('/', function(req, res){
 
 app.use('/api', audioRoutes);
 
-app.listen(3001, () => {
-  console.log('Listening on http://localhost:3001');
-});
+// Only listen if this file is run directly
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const PORT = 3001;
+  app.listen(PORT, () => {
+    console.log(`Listening on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
