@@ -11,6 +11,7 @@ const urlInput = document.getElementById('youtube-url');
 const loadButton = document.getElementById('load-btn');
 const playButton = document.getElementById('play-btn');
 const pauseButton = document.getElementById('pause-btn');
+const stopButton = document.getElementById('stop-btn');
 const statusText = document.getElementById('status');
 
 async function loadAudioStream(backendStreamUrl){
@@ -61,6 +62,7 @@ loadButton.addEventListener('click', () => {
     loadButton.disabled = true;
     playButton.disabled = true;
     pauseButton.disabled = true;
+    stopButton.disabled = true;
     statusText.innerText = "Status: Downloading audio from YouTube... (This may take a moment)";
 
     // Construct the backend URL (making sure special characters are safe with encodeURIComponent)
@@ -79,6 +81,7 @@ playButton.addEventListener('click', () => {
         statusText.innerText = "Status: Playing audio...";
         playButton.disabled = true;
         pauseButton.disabled = false;
+        stopButton.disabled = false;
         return;
     }
 
@@ -112,6 +115,7 @@ playButton.addEventListener('click', () => {
     statusText.innerText = "Status: Playing audio...";
     playButton.disabled = true;
     pauseButton.disabled = false;
+    stopButton.disabled = false;
 
     // Listen for when the audio finishes playing naturally
     sourceNode.onended = () => {
@@ -120,6 +124,7 @@ playButton.addEventListener('click', () => {
             statusText.innerText = "Status: Playback finished.";
             playButton.disabled = false;
             pauseButton.disabled = true;
+            stopButton.disabled = true;
             activeSourceNode = null;
         }
     };
@@ -132,5 +137,26 @@ pauseButton.addEventListener('click', () => {
         statusText.innerText = "Status: Playback paused.";
         playButton.disabled = false;
         pauseButton.disabled = true;
+        stopButton.disabled = false;
     }
 });
+
+stopButton.addEventListener('click', () => {
+    // 1. If we are paused (suspended), wake up the audio engine first 
+    // so it can process the stop action.
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    // 2. Stop the actual active source node (the player)
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+        activeSourceNode = null; // Clear the reference
+    }
+
+    statusText.innerText = "Status: Playback stopped. (Reset to beginning)";
+    playButton.disabled = false;
+    pauseButton.disabled = true;
+    stopButton.disabled = true;
+});
+
