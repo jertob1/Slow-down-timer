@@ -10,7 +10,7 @@ let activeSourceNode = null;     // The currently playing audio player source
 const urlInput = document.getElementById('youtube-url');
 const loadButton = document.getElementById('load-btn');
 const playButton = document.getElementById('play-btn');
-const stopButton = document.getElementById('stop-btn');
+const pauseButton = document.getElementById('pause-btn');
 const statusText = document.getElementById('status');
 
 async function loadAudioStream(backendStreamUrl){
@@ -60,7 +60,7 @@ loadButton.addEventListener('click', () => {
     // Disable buttons and update status so the user knows we are working
     loadButton.disabled = true;
     playButton.disabled = true;
-    stopButton.disabled = true;
+    pauseButton.disabled = true;
     statusText.innerText = "Status: Downloading audio from YouTube... (This may take a moment)";
 
     // Construct the backend URL (making sure special characters are safe with encodeURIComponent)
@@ -73,6 +73,15 @@ loadButton.addEventListener('click', () => {
 
 // --- 4. Event Listener: PLAY AUDIO ---
 playButton.addEventListener('click', () => {
+    // If the audio engine is suspended (paused), just resume it!
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+        statusText.innerText = "Status: Playing audio...";
+        playButton.disabled = true;
+        pauseButton.disabled = false;
+        return;
+    }
+
     // Safety: If there is already audio playing, stop it first to prevent overlapping sound
     if (activeSourceNode) {
         activeSourceNode.stop();
@@ -84,7 +93,7 @@ playButton.addEventListener('click', () => {
     }
 
     // In Web Audio API, an AudioBufferSourceNode is "one-use only". 
-    // You cannot replay an existing node once it has stopped or played.
+    // You cannot replay an existing node once it has pauseped or played.
     // So, every time the user clicks "Play", we must create a fresh, new source node.
     const sourceNode = audioCtx.createBufferSource();
 
@@ -94,7 +103,7 @@ playButton.addEventListener('click', () => {
     // Connect this source node directly to our speakers (destination)
     sourceNode.connect(audioCtx.destination);
 
-    // Save this source node globally so we can stop it if the user clicks "Stop"
+    // Save this source node globally so we can pause it if the user clicks "pause"
     activeSourceNode = sourceNode;
 
     // Start playing the audio immediately (at 0 seconds delay)
@@ -102,7 +111,7 @@ playButton.addEventListener('click', () => {
 
     statusText.innerText = "Status: Playing audio...";
     playButton.disabled = true;
-    stopButton.disabled = false;
+    pauseButton.disabled = false;
 
     // Listen for when the audio finishes playing naturally
     sourceNode.onended = () => {
@@ -110,20 +119,18 @@ playButton.addEventListener('click', () => {
         if (activeSourceNode === sourceNode) {
             statusText.innerText = "Status: Playback finished.";
             playButton.disabled = false;
-            stopButton.disabled = true;
+            pauseButton.disabled = true;
             activeSourceNode = null;
         }
     };
 });
 
-// --- 5. Event Listener: STOP AUDIO ---
-stopButton.addEventListener('click', () => {
-    if (activeSourceNode) {
-        activeSourceNode.stop(); // Stop the audio playback
-        activeSourceNode = null;
+// --- 5. Event Listener: pause AUDIO ---
+pauseButton.addEventListener('click', () => {
+    if (audioCtx && audioCtx.state === 'running') {
+        audioCtx.suspend(); // pause the audio playback
+        statusText.innerText = "Status: Playback paused.";
+        playButton.disabled = false;
+        pauseButton.disabled = true;
     }
-    
-    statusText.innerText = "Status: Playback stopped.";
-    playButton.disabled = false;
-    stopButton.disabled = true;
 });
