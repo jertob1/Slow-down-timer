@@ -18,6 +18,7 @@ app.get('/', function(req, res){
 
 app.use('/api', audioRoutes);
 
+
 // Only listen if this file is run directly
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const PORT = 3001;

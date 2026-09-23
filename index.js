@@ -72,6 +72,386 @@ loadButton.addEventListener('click', () => {
         });
 });
 
+async function loadAudioStream(){
+    try{
+        const response = await fetch(backendStreamUrl);
+        if (!response.ok) {
+            throw new Error(`Server returned error: ${response.statusText}`);
+        }
+        // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+
+        const rawBinaryData = await response.arrayBuffer()
+        statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+        
+        // Step 3: Decode binary bytes into raw PCM audio channels
+        const audioBuffer = await audioCtx.decodeAudioData(rawBinaryData);
+        
+        // Step 4: Save the buffer and update the UI
+        decodedAudioBuffer = audioBuffer;
+        loadButton.disabled = false;
+        playButton.disabled = false;
+        statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+        console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+
+    } catch (error) {
+        // Handle any errors from fetching or decoding
+        console.error('Error fetching or decoding audio:', error);
+        statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+        loadButton.disabled = false;
+    }
+}
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    loadAudioStream()
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
+// --- 4. Event Listener: PLAY AUDIO ---
+playButton.addEventListener('click', () => {
+    // Safety: If there is already audio playing, stop it first to prevent overlapping sound
+    if (activeSourceNode) {
+        activeSourceNode.stop();
+    }
+    fetch(backendStreamUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned error: ${response.statusText}`);
+            }
+            // Instead of .json() or .text(), we use .arrayBuffer() to get raw binary data bytes
+            return response.arrayBuffer();
+        })
+        .then(rawBinaryData => {
+            statusText.innerText = "Status: Decoding audio into memory... (Converting to playable audio)";
+            
+            // STEP B: Decode the binary MP3 bytes into raw uncompressed PCM audio channels in memory.
+            // This returns an AudioBuffer object.
+            return audioCtx.decodeAudioData(rawBinaryData);
+        })
+        .then(audioBuffer => {
+            // STEP C: Save the decoded audio buffer into our global variable so we can play it later
+            decodedAudioBuffer = audioBuffer;
+
+            // Re-enable controls and update status
+            loadButton.disabled = false;
+            playButton.disabled = false; // The user can now click Play!
+            statusText.innerText = "Status: Audio loaded successfully! Ready to play.";
+            console.log('Audio successfully loaded into memory:', decodedAudioBuffer);
+        })
+        .catch(error => {
+            console.error('Error fetching or decoding audio:', error);
+            statusText.innerText = `Status: Error loading audio. Details: ${error.message}`;
+            loadButton.disabled = false;
+        });
+});
+
 // --- 4. Event Listener: PLAY AUDIO ---
 playButton.addEventListener('click', () => {
     // Safety: If there is already audio playing, stop it first to prevent overlapping sound

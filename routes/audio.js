@@ -27,7 +27,6 @@ router.get('/audio', (req, res) => {
     console.error('ffmpeg error:', err.message);
   });
 
-
   // Pipe streams safely with error handling
   ytdlp.stdout.on('error', (err) => {
     if (err.code !== 'EPIPE') console.log('ytdlp stdout error:', err);
